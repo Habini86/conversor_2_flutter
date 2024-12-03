@@ -21,33 +21,33 @@ class HomeController {
   }
 
   //criando o método de conversão
-  double convert(double value1, double value2) {
+  double convert(double value1) {
     switch (nameFromCoin) {
       case 'Real':
-        return realConversion(value1, value2);
+        return realConversion(value1);
       case 'Dolar':
-        return dolarConversion(value1, value2);
+        return dolarConversion(value1);
       default:
         return 0;
     }
   }
 
-  double realConversion(double value1, double value2) {
+  double realConversion(double value1) {
     switch (nameToCoin) {
       case 'Real':
         return value1;
       case 'Dolar':
-        return value1 / fromCoin.real;
+        return value1 * fromCoin.dolar;
       case 'Euro':
-        return value1 / fromCoin.euro;
+        return value1 * fromCoin.euro;
       case 'Bitcoin':
-        return value1 / fromCoin.bitcoins;
+        return value1 * fromCoin.bitcoins;
       default:
         return 0;
     }
   }
 
-  double dolarConversion(double value1, double value2) {
+  double dolarConversion(double value1) {
     switch (nameToCoin) {
       case 'Real':
         return value1 * fromCoin.real;

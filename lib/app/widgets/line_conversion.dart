@@ -3,10 +3,14 @@ import 'package:flutter/services.dart';
 
 class LineConversion extends StatelessWidget {
   const LineConversion(
-      {super.key, required this.controller, required this.coinNameNotifier});
+      {super.key,
+      required this.controller,
+      required this.coinNameNotifier,
+      required this.enable});
 
   final TextEditingController controller;
   final ValueNotifier<String> coinNameNotifier;
+  final bool enable;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,7 @@ class LineConversion extends StatelessWidget {
           flex: 2,
           child: TextField(
             controller: controller,
+            enabled: enable,
             keyboardType: const TextInputType.numberWithOptions(
               decimal: true,
               signed: false,
@@ -54,6 +59,15 @@ class LineConversion extends StatelessWidget {
                 },
               ),
             ],
+            decoration: const InputDecoration(
+              filled: true,
+              fillColor:
+                  Colors.black, // Fundo do campo de texto totalmente escuro
+              border: OutlineInputBorder(),
+            ),
+            style: const TextStyle(
+              color: Colors.white, // Cor do texto
+            ),
           ),
         ),
       ],

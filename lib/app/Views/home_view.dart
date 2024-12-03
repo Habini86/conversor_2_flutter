@@ -29,15 +29,16 @@ class _HomeViewState extends State<HomeView> {
               height: 200,
             ),
             LineConversion(
-              controller: fromCoin,
-              coinNameNotifier: nameFromCoin,
-            ),
+                controller: fromCoin,
+                coinNameNotifier: nameFromCoin,
+                enable: true),
             const SizedBox(
               height: 15,
             ),
             LineConversion(
               controller: toCoin,
               coinNameNotifier: nameToCoin,
+              enable: false, // Bloqueia a escrita no campo
             ),
             const SizedBox(
               height: 15,
@@ -48,35 +49,19 @@ class _HomeViewState extends State<HomeView> {
                   return;
                 }
 
-                if (fromCoin.text.isEmpty || toCoin.text.isEmpty) {
+                if (fromCoin.text.isEmpty) {
                   return;
                 }
 
                 final double value1 = double.parse(fromCoin.text);
-                final double value2 = double.parse(toCoin.text);
 
                 double result = HomeController(
                   nameFromCoin: nameFromCoin.value,
                   nameToCoin: nameToCoin.value,
-                ).convert(value1, value2);
+                ).convert(value1);
 
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Resultado'),
-                      content: Text('O valor convertido é: $result'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                // Atualiza o valor do controlador toCoin
+                toCoin.text = result.toStringAsFixed(2);
               },
               child: const Text('Converter'),
             ),
